@@ -1005,6 +1005,10 @@ button.hero-social-link {
   font-weight: 400;
 }
 
+.project-award {
+  color: var(--accent);
+}
+
 .project-summary {
   margin: 0;
   flex: 1;
