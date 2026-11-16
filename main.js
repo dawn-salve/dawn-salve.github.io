@@ -149,12 +149,6 @@
           ? "Scroll back to profile photo"
           : "Scroll to see close collaboration partner"
       );
-      hint.setAttribute(
-        "data-tooltip",
-        onPartner
-          ? "Scroll back to profile photo"
-          : "Scroll to see close collaboration partner"
-      );
       if (identitySelf) {
         identitySelf.setAttribute("aria-hidden", onPartner ? "true" : "false");
       }
