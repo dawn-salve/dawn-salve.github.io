@@ -127,4 +127,54 @@
       }
     });
   });
+
+  (function initHeroPhotoScroll() {
+    var stage = document.querySelector(".hero-photo-stage");
+    var scroller = document.querySelector(".hero-photo-scroll");
+    var hint = document.querySelector(".hero-photo-scroll-hint");
+    var identitySelf = document.querySelector(".hero-identity-self");
+    var identityPartner = document.querySelector(".hero-identity-partner");
+    if (!stage || !scroller || !hint) return;
+
+    function pageHeight() {
+      return scroller.clientHeight || 1;
+    }
+
+    function syncHint() {
+      var onPartner = scroller.scrollTop > pageHeight() * 0.45;
+      stage.classList.toggle("is-on-partner", onPartner);
+      hint.setAttribute(
+        "aria-label",
+        onPartner
+          ? "Scroll back to profile photo"
+          : "Scroll to see close collaboration partner"
+      );
+      hint.setAttribute(
+        "data-tooltip",
+        onPartner
+          ? "Scroll back to profile photo"
+          : "Scroll to see close collaboration partner"
+      );
+      if (identitySelf) {
+        identitySelf.setAttribute("aria-hidden", onPartner ? "true" : "false");
+      }
+      if (identityPartner) {
+        identityPartner.setAttribute(
+          "aria-hidden",
+          onPartner ? "false" : "true"
+        );
+      }
+    }
+
+    scroller.addEventListener("scroll", syncHint, { passive: true });
+    window.addEventListener("resize", syncHint);
+
+    hint.addEventListener("click", function () {
+      var next =
+        scroller.scrollTop > pageHeight() * 0.45 ? 0 : pageHeight();
+      scroller.scrollTo({ top: next, behavior: "smooth" });
+    });
+
+    syncHint();
+  })();
 })();
